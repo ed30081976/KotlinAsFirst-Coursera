@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test
 import kotlin.math.PI
 
 class Tests {
+
+    @Test
+    @Tag("Example")
+    fun myTest(){
+        assertEquals(4.0,sqr(2.0))}
+
     @Test
     @Tag("Example")
     fun sqr() {

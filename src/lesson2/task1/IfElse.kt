@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -56,13 +57,27 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
     return -sqrt(y3)           // 7
 }
 
+fun main(args: Array<String>) {
+    println(ageDescription(24))
+}
+
 /**
  * Простая
  *
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    val ageLastNumber: Int = age - ((age / 10) * 10)
+    val ageLastTowNumber = age - ((age / 100) * 100)
+    val lastNumberFrom11to14: Boolean = (ageLastTowNumber > 10) && (ageLastTowNumber < 15)
+    if ((0 < age) && (age < 200))
+        if (((2 <= ageLastNumber) && (ageLastNumber <= 4)) && !(lastNumberFrom11to14)) return "$age года" else
+            if ((ageLastNumber == 1) && !(lastNumberFrom11to14)) return "$age год" else
+                return "$age лет"
+    else return "Неверный возраст"
+}
+
 
 /**
  * Простая
@@ -73,7 +88,19 @@ fun ageDescription(age: Int): String = TODO()
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+    val lengthOfPath1 = (t1 * v1)
+    val lengthOfPath2 = (t2 * v2)
+    val lengthOfPath3 = (t3 * v3)
+    val halbOfAllPath = (lengthOfPath1 + lengthOfPath2 + lengthOfPath3) / 2
+    val x: Double
+    if ((lengthOfPath1 + lengthOfPath2) < halbOfAllPath)
+        x = ((halbOfAllPath - lengthOfPath1 - lengthOfPath2) / v3 + t1 + t2) else
+        if (lengthOfPath1 < halbOfAllPath)
+            x = ((halbOfAllPath - lengthOfPath1) / v2 + t1) else
+            x = (halbOfAllPath / v1)
+    return x
+}
 
 /**
  * Простая
@@ -83,10 +110,17 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * Вернуть 0, если угрозы нет, 1, если угроза только от первой ладьи, 2, если только от второй ладьи,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
- */
+**/
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
+                       rookX2: Int, rookY2: Int): Int
+{
+    val RookThreat1: Int
+    val RookThreat2: Int
+    if ((kingX == rookX1) || (kingY == rookY1)) RookThreat1 = 1 else RookThreat1 = 0
+    if ((kingX == rookX2) || (kingY == rookY2)) RookThreat2 = 2 else RookThreat2 = 0
+return (RookThreat1+RookThreat2)
+}
 
 /**
  * Простая
@@ -100,7 +134,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+                          bishopX: Int, bishopY: Int): Int {
+    val rookThreaten: Int
+    val bishopThreaten: Int
+    if ((kingX==rookX)||(kingY==rookY)) rookThreaten=1 else rookThreaten=0
+    if (((kingX-bishopX)*(kingX-bishopX)) == ((kingY-bishopY)*(kingY-bishopY))) bishopThreaten=2 else bishopThreaten=0
+    return (rookThreaten+bishopThreaten)
+}
 
 /**
  * Простая
@@ -110,7 +150,22 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val h: Double
+    val k: Double
+    val l: Double
+    val r: Int
+
+    if (((a+b)>c) && ((a+c)>b) && ((c+b)>a))
+        if (a>b && a>c) { h=a*a; k=b*b; l=c*c}
+        else if (b>a && b>c) {h=b*b; k=a*a; l=c*c}
+             else {h=c*c; k=a*a; l=b*b}
+    else return -1
+
+    if (h<(k+l)) return 0
+    else if (h==(k+l)) return 1
+         else return 2
+}
 
 /**
  * Средняя
@@ -120,4 +175,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val l:Int
+    if ((b<c) || (d<a)) l=-1
+    else if (a<c) if (b<d) l=b-c
+                  else l=d-c
+         else if (b<d) l=b-a
+              else l=d-a
+    return l
+}
