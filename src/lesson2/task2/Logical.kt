@@ -17,7 +17,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = TODO()
+fun isNumberHappy(number: Int): Boolean {
+    val sum1=(number/1000) + ((number/100)-((number/1000)*10))
+    val sum2=((number/10)-((number/100)*10)) + (number-((number/10)*10))
+    if (sum1==sum2) return (true) else return (false)
+}
 
 /**
  * Простая
@@ -26,7 +30,12 @@ fun isNumberHappy(number: Int): Boolean = TODO()
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean{
+    val variant1=(x1==x2 || y1==y2)
+    val variant2=(((x1-x2)*(x1-x2))==((y1-y2)*(y1-y2)))
+    if (variant1 || variant2) return true
+    else return false
+}
 
 
 /**
@@ -35,7 +44,16 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int = TODO()
+fun daysInMonth(month: Int, year: Int): Int{
+    return when {
+        month in arrayOf(1,3,5,7,8,10,12) -> 31
+        month in arrayOf(4,6,9,11) -> 30
+        (month==2 && ((year/100*100)==year) && ((year/400*400)!=year)) -> 28
+        (month==2 && ((year/4*4)==year)) -> 29
+        else -> 28
+
+    }
+}
 
 /**
  * Средняя
@@ -45,7 +63,10 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = TODO()
+                 x2: Double, y2: Double, r2: Double): Boolean{
+    if ((r2*r2)>=((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)+r1*r1)) return true
+    else return false
+}
 
 /**
  * Средняя
